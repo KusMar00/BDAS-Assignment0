@@ -6,6 +6,25 @@ namespace LeapYear
     {
         static void Main(string[] args)
         {
+            Program p = new Program();
+            Console.WriteLine("Welcome to the leap year tester! \nWrite a year:");
+            var input = Console.ReadLine();
+            try
+            {
+                int year = Int32.Parse(input);
+                bool result = p.IsLeapYear(year);
+                if (result)
+                {
+                    Console.WriteLine("yay");
+                } else
+                {
+                    Console.WriteLine("nay");
+                }
+            } catch (FormatException)
+            {
+                Console.WriteLine("Could not format");
+            }
+
         }
 
         public bool IsLeapYear(int year)
