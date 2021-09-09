@@ -22,20 +22,32 @@ namespace LeapYear
                 }
             } catch (FormatException)
             {
-                Console.WriteLine("Could not format");
+                Console.WriteLine("Please write an integer");
+            } catch (InvalidYearException)
+            {
+                Console.WriteLine("I only accept years after 1581");
             }
 
         }
 
         public bool IsLeapYear(int year)
         {
-            if (year < 1582) return false;
+            if (year < 1582) {
+                throw new InvalidYearException();
+            }
             if (year%4==0)
             {
                 if (year%100==0 && year%400!=0) return false;
                 else return true;
             } 
             return false;
+        }
+    }
+
+    public class InvalidYearException : System.Exception
+    {
+        public InvalidYearException(){
+
         }
     }
 }

@@ -42,7 +42,6 @@ namespace LeapYear.Tests
         [InlineData("2000", "yay")]
         [InlineData("1732", "yay")]
         [InlineData("4106", "nay")]
-
         public void Main_User_Input(string year, string expected)
         {
             // Arrange
@@ -55,6 +54,34 @@ namespace LeapYear.Tests
             var output = writer.GetStringBuilder().ToString().Trim();
             // Assert
             Assert.Equal(expected, output);
+        }
+
+        [Fact]
+        public void Main_input_not_convertible_to_int() {
+            // Arrange
+            var reader = new StringReader("no");
+            Console.SetIn(reader);
+            var writer = new StringWriter();
+            Console.SetOut(writer);
+            // Act
+            Program.Main(new string[0]);
+            var output = writer.GetStringBuilder().ToString().Trim();
+            // Assert
+            Assert.Equal("Please write an integer", output);
+        }
+
+        [Fact]
+        public void Main_input_year_before_1582() {
+            // Arrange
+            var reader = new StringReader("1581");
+            Console.SetIn(reader);
+            var writer = new StringWriter();
+            Console.SetOut(writer);
+            // Act
+            Program.Main(new string[0]);
+            var output = writer.GetStringBuilder().ToString().Trim();
+            // Assert
+            Assert.Equal("I only accept years after 1581", output);
         }
     }
 }
